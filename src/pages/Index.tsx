@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Index = () => {
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
@@ -35,13 +34,14 @@ const Index = () => {
             </div>
           </div>
           
-          <Button 
-            onClick={() => navigate('/surveillance')} 
-            className="w-full"
-            size="lg"
-          >
-            Access Surveillance System
-          </Button>
+          <Link to="/surveillance">
+            <Button 
+              className="w-full"
+              size="lg"
+            >
+              Access Surveillance System
+            </Button>
+          </Link>
           
           <div className="text-center text-sm text-muted-foreground">
             Demo Credentials: admin@uchittechnology.com / admin123
