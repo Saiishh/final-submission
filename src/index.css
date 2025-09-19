@@ -2,41 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Surveillance System Design System - Professional Security Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core surveillance theme colors */
+    --background: 210 11% 15%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 210 11% 17%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 210 11% 17%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Professional blue accent for surveillance systems */
+    --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
+    --primary-glow: 217 91% 60%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 25% 23%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 215 25% 27%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Alert colors for security system */
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+    --warning: 48 96% 53%;
+    --warning-foreground: 210 11% 15%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 25% 23%;
+    --input: 215 25% 23%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Surveillance-specific design tokens */
+    --camera-bg: 215 25% 20%;
+    --alert-danger: 0 84% 60%;
+    --alert-success: 142 76% 36%;
+    --alert-warning: 48 96% 53%;
+    --alert-info: 217 91% 60%;
+    
+    /* Gradients for modern surveillance UI */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 45%) 100%);
+    --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(0 84% 45%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 76% 28%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(215 25% 20%) 0%, hsl(215 25% 18%) 100%);
+    
+    /* Shadows and glows for depth */
+    --shadow-surveillance: 0 8px 32px hsl(210 11% 4% / 0.3);
+    --shadow-alert: 0 4px 20px hsl(0 84% 60% / 0.2);
+    --glow-primary: 0 0 20px hsl(217 91% 60% / 0.3);
+    --glow-danger: 0 0 20px hsl(0 84% 60% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pulse-alert: pulse-alert 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,6 +123,16 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes pulse-alert {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes blink-alert {
+  0%, 50% { background-color: hsl(var(--alert-danger)); }
+  51%, 100% { background-color: transparent; }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -101,5 +140,51 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .surveillance-card {
+    @apply bg-card border border-border rounded-lg shadow-lg;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-surveillance);
+  }
+  
+  .camera-feed {
+    @apply bg-card border border-border rounded-lg overflow-hidden;
+    background: hsl(var(--camera-bg));
+  }
+  
+  .alert-badge {
+    @apply text-xs font-medium px-2 py-1 rounded-full;
+  }
+  
+  .alert-danger {
+    @apply bg-destructive text-destructive-foreground;
+    background: var(--gradient-danger);
+    box-shadow: var(--glow-danger);
+    animation: var(--pulse-alert);
+  }
+  
+  .alert-success {
+    @apply bg-success text-success-foreground;
+    background: var(--gradient-success);
+  }
+  
+  .alert-warning {
+    @apply bg-warning text-warning-foreground;
+  }
+  
+  .status-indicator {
+    @apply w-3 h-3 rounded-full;
+  }
+  
+  .status-online {
+    @apply bg-success;
+    box-shadow: 0 0 10px hsl(var(--success) / 0.5);
+  }
+  
+  .status-offline {
+    @apply bg-destructive;
   }
 }

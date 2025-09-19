@@ -1,73 +1,126 @@
-# Welcome to your Lovable project
+# AI-Powered Video Surveillance System
 
-## Project info
+A comprehensive full-stack application for real-time video surveillance using AI-powered object detection.
 
-**URL**: https://lovable.dev/projects/6f717900-5009-465e-987e-49c297103b0b
+## Features
 
-## How can I edit this code?
+- **Real-time Object Detection**: YOLO-based detection for persons, helmets, and safety vests
+- **Live Video Streaming**: Real-time processed video feeds with bounding boxes
+- **Alert System**: Instant alerts with sound notifications for security violations
+- **Professional Dashboard**: Modern dark-themed interface with analytics
+- **Safety Monitoring**: Specialized detection for workplace safety compliance
 
-There are several ways of editing your application.
+## Technology Stack
 
-**Use Lovable**
+### Frontend
+- React 18 with TypeScript
+- Vite for development
+- Tailwind CSS for styling
+- shadcn/ui components
+- Recharts for data visualization
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6f717900-5009-465e-987e-49c297103b0b) and start prompting.
+### Backend
+- FastAPI (Python)
+- YOLO via Ultralytics
+- OpenCV for video processing
+- Real-time streaming with Server-Sent Events
 
-Changes made via Lovable will be committed automatically to this repo.
+## Quick Start
 
-**Use your preferred IDE**
+### Prerequisites
+- Node.js 18+ and npm
+- Python 3.8+
+- YOLO model files (.pt)
+- Demo video files (.mp4)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend Setup
+```bash
+# Install dependencies
+npm install
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Backend Setup
+```bash
+# Navigate to backend directory
+cd backend
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# Install Python dependencies
+pip install -r requirements.txt
 
-**Use GitHub Codespaces**
+# Place your model files:
+# - helmet_model.pt
+# - person_intrusion.pt (included)
+# - vest_model.pt (included)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Place your video files:
+# - helmet.mp4
+# - thief.mp4
+# - 41501-429661287_small.mp4
 
-## What technologies are used for this project?
+# Start the backend server
+python main.py
+```
 
-This project is built with:
+## Usage
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. **Access the Application**: Navigate to `http://localhost:5173`
 
-## How can I deploy this project?
+2. **Login**: Use demo credentials:
+   - Email: `admin@uchittechnology.com`
+   - Password: `admin123`
 
-Simply open [Lovable](https://lovable.dev/projects/6f717900-5009-465e-987e-49c297103b0b) and click on Share -> Publish.
+3. **Monitor Live Feeds**: 
+   - View real-time AI-processed video streams
+   - Receive instant alerts for detections
+   - Monitor safety compliance
 
-## Can I connect a custom domain to my Lovable project?
+## API Endpoints
 
-Yes, you can!
+- `GET /api/video/{model_name}` - Stream processed video feed
+- `GET /api/alerts` - Get current alert status
+- `GET /api/status` - Get system status
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## File Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```
+├── src/
+│   ├── components/
+│   │   ├── ui/           # shadcn/ui components
+│   │   └── SurveillanceApp.jsx
+│   ├── pages/
+│   └── mockData.js
+├── backend/
+│   ├── main.py           # FastAPI server
+│   ├── requirements.txt
+│   ├── *.pt             # YOLO model files
+│   └── *.mp4            # Demo video files
+└── public/
+    └── new-notification-09-352705.mp3
+```
+
+## Detection Types
+
+1. **Person Intrusion**: Detects unauthorized persons in restricted areas
+2. **Helmet Detection**: Monitors workplace safety - alerts when workers lack helmets
+3. **Safety Vest Detection**: Ensures workers wear required safety equipment
+
+## Development
+
+The application uses a modern design system with:
+- Professional surveillance-themed dark UI
+- Semantic color tokens
+- Responsive grid layouts
+- Real-time status indicators
+- Alert animations and sound notifications
+
+## Demo Credentials
+
+- **Email**: admin@uchittechnology.com
+- **Password**: admin123
+
+## License
+
+This project is for demonstration purposes.
