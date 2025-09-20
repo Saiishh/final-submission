@@ -2,189 +2,180 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Surveillance System Design System - Professional Security Theme */
-
 @layer base {
   :root {
-    /* Core surveillance theme colors */
-    --background: 210 11% 15%;
-    --foreground: 210 40% 98%;
-
-    --card: 210 11% 17%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 210 11% 17%;
-    --popover-foreground: 210 40% 98%;
-
-    /* Professional blue accent for surveillance systems */
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 217 91% 60%;
-
-    --secondary: 215 25% 27%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 215 25% 23%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 215 25% 27%;
-    --accent-foreground: 210 40% 98%;
-
-    /* Alert colors for security system */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    /* Light mode - Professional surveillance system colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    
+    /* Primary brand colors - Blue theme for surveillance */
+    --primary: 217 91% 60%; /* Professional blue */
+    --primary-foreground: 0 0% 98%;
+    --primary-dark: 217 91% 45%;
+    --primary-light: 217 91% 75%;
+    
+    /* Sidebar colors - Dark professional theme (always dark) */
+    --sidebar: 220 26% 14%; /* Dark blue-gray */
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-accent: 217 91% 60%; /* Blue accent */
+    --sidebar-muted: 220 13% 26%;
+    
+    /* Status colors */
     --success: 142 76% 36%;
-    --success-foreground: 210 40% 98%;
-    --warning: 48 96% 53%;
-    --warning-foreground: 210 11% 15%;
-
-    --border: 215 25% 23%;
-    --input: 215 25% 23%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    --error: 0 84% 60%;
+    --error-foreground: 0 0% 98%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 98%;
+    
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
     --ring: 217 91% 60%;
-
-    --radius: 0.75rem;
-
-    /* Surveillance-specific design tokens */
-    --camera-bg: 215 25% 20%;
-    --alert-danger: 0 84% 60%;
-    --alert-success: 142 76% 36%;
-    --alert-warning: 48 96% 53%;
-    --alert-info: 217 91% 60%;
     
-    /* Gradients for modern surveillance UI */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 45%) 100%);
-    --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(0 84% 45%) 100%);
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 76% 28%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(215 25% 20%) 0%, hsl(215 25% 18%) 100%);
+    /* Chart colors for surveillance data */
+    --chart-1: 217 91% 60%; /* Primary blue */
+    --chart-2: 142 76% 36%; /* Success green */
+    --chart-3: 38 92% 50%; /* Warning orange */
+    --chart-4: 0 84% 60%; /* Error red */
+    --chart-5: 280 65% 60%; /* Purple */
     
-    /* Shadows and glows for depth */
-    --shadow-surveillance: 0 8px 32px hsl(210 11% 4% / 0.3);
-    --shadow-alert: 0 4px 20px hsl(0 84% 60% / 0.2);
-    --glow-primary: 0 0 20px hsl(217 91% 60% / 0.3);
-    --glow-danger: 0 0 20px hsl(0 84% 60% / 0.3);
+    --radius: 0.5rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+    --gradient-sidebar: linear-gradient(180deg, hsl(var(--sidebar)), hsl(220 26% 10%));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-sidebar: 4px 0 6px -1px rgb(0 0 0 / 0.1);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --pulse-alert: pulse-alert 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 217 91% 60%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 0 84% 60%;
+    --chart-5: 280 65% 60%;
   }
-}
-
-@keyframes pulse-alert {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes blink-alert {
-  0%, 50% { background-color: hsl(var(--alert-danger)); }
-  51%, 100% { background-color: transparent; }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @layer components {
+  /* Surveillance specific components */
   .surveillance-card {
-    @apply bg-card border border-border rounded-lg shadow-lg;
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-surveillance);
+    @apply bg-card border border-border rounded-lg shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-lg;
+  }
+  
+  .surveillance-sidebar {
+    @apply bg-[hsl(var(--sidebar))] text-[hsl(var(--sidebar-foreground))] shadow-[var(--shadow-sidebar)];
+    background: var(--gradient-sidebar);
+  }
+  
+  .surveillance-nav-item {
+    @apply flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200;
+    @apply hover:bg-[hsl(var(--sidebar-muted))] hover:text-[hsl(var(--sidebar-accent))];
+  }
+  
+  .surveillance-nav-item.active {
+    @apply bg-[hsl(var(--sidebar-accent))] text-white;
+  }
+  
+  .stat-card {
+    @apply surveillance-card p-6;
   }
   
   .camera-feed {
-    @apply bg-card border border-border rounded-lg overflow-hidden;
-    background: hsl(var(--camera-bg));
+    @apply surveillance-card overflow-hidden relative;
   }
   
   .alert-badge {
-    @apply text-xs font-medium px-2 py-1 rounded-full;
+    @apply px-2 py-1 rounded-full text-xs font-medium;
   }
   
-  .alert-danger {
-    @apply bg-destructive text-destructive-foreground;
-    background: var(--gradient-danger);
-    box-shadow: var(--glow-danger);
-    animation: var(--pulse-alert);
+  .alert-badge.success {
+    @apply bg-[hsl(var(--success))] text-[hsl(var(--success-foreground))];
   }
   
-  .alert-success {
-    @apply bg-success text-success-foreground;
-    background: var(--gradient-success);
+  .alert-badge.warning {
+    @apply bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))];
   }
   
-  .alert-warning {
-    @apply bg-warning text-warning-foreground;
+  .alert-badge.error {
+    @apply bg-[hsl(var(--error))] text-[hsl(var(--error-foreground))];
   }
   
-  .status-indicator {
-    @apply w-3 h-3 rounded-full;
+  .alert-badge.info {
+    @apply bg-[hsl(var(--info))] text-[hsl(var(--info-foreground))];
   }
   
-  .status-online {
-    @apply bg-success;
-    box-shadow: 0 0 10px hsl(var(--success) / 0.5);
+  /* Login page background */
+  .login-background {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e293b 75%, #0f172a 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
   }
   
-  .status-offline {
-    @apply bg-destructive;
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Tech grid overlay */
+  .tech-grid {
+    background-image: 
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+  }
+  
+  @keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
   }
 }

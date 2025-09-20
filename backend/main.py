@@ -146,7 +146,7 @@ def initialize_models():
     
     model_files = {
         "helmet": "helmet_model.pt",
-        "vest": "vest_model.pt",
+        "vest": "vest_model.pt", 
         "person": "person_intrusion.pt"
     }
     
