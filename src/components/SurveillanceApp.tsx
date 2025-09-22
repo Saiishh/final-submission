@@ -5,7 +5,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
 import { 
-  Shield, Video, AlertTriangle, Activity, Settings, Bell, 
+  Shield, Video, AlertTriangle, Activity, Settings as SettingsIcon, Bell, 
   Users, FileText, Network, Info, LogOut, Monitor, Eye, 
   BarChart3, Home, Calendar, Clock, CheckCircle, XCircle,
   Wifi, Play, Pause, Volume2, VolumeX, RotateCcw, Maximize,
@@ -22,6 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import loginBg from '@/assets/login-bg.jpg';
 
 // Login Page Component
 const LoginPage = ({ onLogin, theme, toggleTheme }: { 
@@ -74,7 +75,12 @@ const LoginPage = ({ onLogin, theme, toggleTheme }: {
   };
 
   return (
-    <div className="min-h-screen login-background tech-grid flex items-center justify-center p-4">
+    <div 
+      className="min-h-screen login-background tech-grid flex items-center justify-center p-4"
+      style={{ 
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url(${loginBg})` 
+      }}
+    >
       {/* Animated tech elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-32 h-32 border border-primary/30 rounded-full animate-pulse-soft"></div>
@@ -1003,11 +1009,722 @@ const Reports = () => {
   );
 };
 
+// Network Management Page
+const NetworkManagement = () => {
+  const networkDevices = [
+    { id: 1, name: 'Main Router', ip: '192.168.1.1', status: 'online', type: 'Router', latency: '2ms' },
+    { id: 2, name: 'Security Switch', ip: '192.168.1.2', status: 'online', type: 'Switch', latency: '1ms' },
+    { id: 3, name: 'Camera 1', ip: '192.168.1.101', status: 'online', type: 'Camera', latency: '5ms' },
+    { id: 4, name: 'Camera 2', ip: '192.168.1.102', status: 'online', type: 'Camera', latency: '4ms' },
+    { id: 5, name: 'Camera 3', ip: '192.168.1.103', status: 'offline', type: 'Camera', latency: 'N/A' },
+    { id: 6, name: 'Storage Server', ip: '192.168.1.200', status: 'online', type: 'Server', latency: '3ms' },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Network Management</h1>
+        <Button className="bg-success hover:bg-success/90">
+          <Network className="w-4 h-4 mr-2" />
+          Network Scan
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <Card className="surveillance-card">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Network Health</p>
+                <p className="text-2xl font-bold text-success">98.5%</p>
+              </div>
+              <Network className="h-8 w-8 text-success" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="surveillance-card">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Bandwidth Usage</p>
+                <p className="text-2xl font-bold text-info">234 Mbps</p>
+              </div>
+              <Activity className="h-8 w-8 text-info" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="surveillance-card">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Active Devices</p>
+                <p className="text-2xl font-bold text-primary">26</p>
+              </div>
+              <Monitor className="h-8 w-8 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="surveillance-card">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Offline Devices</p>
+                <p className="text-2xl font-bold text-error">1</p>
+              </div>
+              <XCircle className="h-8 w-8 text-error" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>Network Devices</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Device Name</TableHead>
+                <TableHead>IP Address</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Latency</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {networkDevices.map((device) => (
+                <TableRow key={device.id}>
+                  <TableCell className="font-medium">{device.name}</TableCell>
+                  <TableCell>{device.ip}</TableCell>
+                  <TableCell>{device.type}</TableCell>
+                  <TableCell>
+                    <Badge className={`alert-badge ${device.status === 'online' ? 'success' : 'error'}`}>
+                      {device.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>{device.latency}</TableCell>
+                  <TableCell>
+                    <div className="flex space-x-2">
+                      <Button variant="outline" size="sm">
+                        <SettingsIcon className="w-4 h-4" />
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Activity className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Client System Info Page
+const ClientSystemInfo = () => {
+  const systemSpecs = [
+    { component: 'Operating System', value: 'Windows 11 Pro', status: 'normal' },
+    { component: 'Processor', value: 'Intel Core i7-12700K @ 3.60GHz', status: 'normal' },
+    { component: 'Memory (RAM)', value: '32.0 GB DDR4', status: 'normal' },
+    { component: 'Graphics Card', value: 'NVIDIA GeForce RTX 3080', status: 'normal' },
+    { component: 'Storage (Primary)', value: '1TB NVMe SSD', status: 'normal' },
+    { component: 'Storage (Secondary)', value: '4TB HDD', status: 'warning' },
+    { component: 'Network Adapter', value: 'Gigabit Ethernet', status: 'normal' },
+    { component: 'AI Processing Unit', value: 'NVIDIA Tensor RT', status: 'normal' },
+  ];
+
+  const performanceMetrics = [
+    { metric: 'CPU Usage', value: 45, max: 100, unit: '%', color: 'success' },
+    { metric: 'Memory Usage', value: 68, max: 100, unit: '%', color: 'warning' },
+    { metric: 'GPU Usage', value: 23, max: 100, unit: '%', color: 'success' },
+    { metric: 'Disk Usage (Primary)', value: 78, max: 100, unit: '%', color: 'warning' },
+    { metric: 'Disk Usage (Secondary)', value: 92, max: 100, unit: '%', color: 'error' },
+    { metric: 'Network Throughput', value: 234, max: 1000, unit: 'Mbps', color: 'info' },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Client System Information</h1>
+        <Button className="bg-primary hover:bg-primary/90">
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Refresh Data
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>System Specifications</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {systemSpecs.map((spec, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                  <div className="flex-1">
+                    <p className="font-medium">{spec.component}</p>
+                    <p className="text-sm text-muted-foreground">{spec.value}</p>
+                  </div>
+                  <Badge className={`alert-badge ${spec.status}`}>
+                    {spec.status === 'normal' ? 'OK' : spec.status.toUpperCase()}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>Performance Metrics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {performanceMetrics.map((metric, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium">{metric.metric}</span>
+                    <span className="text-sm font-medium">{metric.value}{metric.unit}</span>
+                  </div>
+                  <Progress 
+                    value={(metric.value / metric.max) * 100} 
+                    className={`h-2 progress-${metric.color}`} 
+                  />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>System Diagnostics</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-success/10 border border-success/20 rounded-lg">
+              <CheckCircle className="h-12 w-12 text-success mx-auto mb-2" />
+              <h3 className="font-semibold text-success">System Health: Excellent</h3>
+              <p className="text-sm text-muted-foreground">All systems operational</p>
+            </div>
+            <div className="text-center p-4 bg-info/10 border border-info/20 rounded-lg">
+              <Clock className="h-12 w-12 text-info mx-auto mb-2" />
+              <h3 className="font-semibold text-info">Uptime: 7 days 14h</h3>
+              <p className="text-sm text-muted-foreground">Last restart: Jan 8, 2024</p>
+            </div>
+            <div className="text-center p-4 bg-warning/10 border border-warning/20 rounded-lg">
+              <AlertTriangle className="h-12 w-12 text-warning mx-auto mb-2" />
+              <h3 className="font-semibold text-warning">Storage Warning</h3>
+              <p className="text-sm text-muted-foreground">Secondary disk 92% full</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Settings Page
+const Settings = ({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) => {
+  const [settings, setSettings] = useState({
+    autoBackup: true,
+    emailNotifications: true,
+    soundAlerts: true,
+    highQualityRecording: false,
+    motionSensitivity: 75,
+    alertCooldown: 5,
+    maxStorageDays: 30,
+  });
+
+  const updateSetting = (key: string, value: any) => {
+    setSettings(prev => ({ ...prev, [key]: value }));
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">System Settings</h1>
+        <Button className="bg-success hover:bg-success/90">
+          <CheckCircle className="w-4 h-4 mr-2" />
+          Save Settings
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>General Settings</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-base font-medium">Theme Mode</Label>
+                <p className="text-sm text-muted-foreground">Switch between light and dark theme</p>
+              </div>
+              <Button onClick={toggleTheme} variant="outline" size="sm">
+                {theme === 'dark' ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
+                {theme === 'dark' ? 'Light' : 'Dark'} Mode
+              </Button>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-base font-medium">Auto Backup</Label>
+                <p className="text-sm text-muted-foreground">Automatically backup recordings</p>
+              </div>
+              <Checkbox 
+                checked={settings.autoBackup}
+                onCheckedChange={(checked) => updateSetting('autoBackup', checked)}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-base font-medium">Email Notifications</Label>
+                <p className="text-sm text-muted-foreground">Send alerts via email</p>
+              </div>
+              <Checkbox 
+                checked={settings.emailNotifications}
+                onCheckedChange={(checked) => updateSetting('emailNotifications', checked)}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-base font-medium">Sound Alerts</Label>
+                <p className="text-sm text-muted-foreground">Play audio alerts</p>
+              </div>
+              <Checkbox 
+                checked={settings.soundAlerts}
+                onCheckedChange={(checked) => updateSetting('soundAlerts', checked)}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div>
+                <Label className="text-base font-medium">High Quality Recording</Label>
+                <p className="text-sm text-muted-foreground">Record in 4K quality</p>
+              </div>
+              <Checkbox 
+                checked={settings.highQualityRecording}
+                onCheckedChange={(checked) => updateSetting('highQualityRecording', checked)}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>Advanced Settings</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <Label className="text-base font-medium">Motion Sensitivity</Label>
+              <p className="text-sm text-muted-foreground mb-3">Adjust motion detection sensitivity</p>
+              <div className="space-y-3">
+                <Progress value={settings.motionSensitivity} className="h-2" />
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>Low</span>
+                  <span>{settings.motionSensitivity}%</span>
+                  <span>High</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <Label className="text-base font-medium">Alert Cooldown (seconds)</Label>
+              <p className="text-sm text-muted-foreground mb-3">Time between repeated alerts</p>
+              <Input 
+                type="number" 
+                value={settings.alertCooldown}
+                onChange={(e) => updateSetting('alertCooldown', parseInt(e.target.value))}
+                min="1"
+                max="60"
+              />
+            </div>
+
+            <div>
+              <Label className="text-base font-medium">Storage Retention (days)</Label>
+              <p className="text-sm text-muted-foreground mb-3">How long to keep recordings</p>
+              <Select 
+                value={settings.maxStorageDays.toString()} 
+                onValueChange={(value) => updateSetting('maxStorageDays', parseInt(value))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="7">7 days</SelectItem>
+                  <SelectItem value="14">14 days</SelectItem>
+                  <SelectItem value="30">30 days</SelectItem>
+                  <SelectItem value="60">60 days</SelectItem>
+                  <SelectItem value="90">90 days</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>System Information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">Version</h4>
+              <p className="text-2xl font-bold text-primary">v2.4.1</p>
+              <p className="text-sm text-muted-foreground">UchitTech AI Surveillance</p>
+            </div>
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">License</h4>
+              <p className="text-2xl font-bold text-success">Active</p>
+              <p className="text-sm text-muted-foreground">Expires: Dec 2024</p>
+            </div>
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">Support</h4>
+              <p className="text-2xl font-bold text-info">Premium</p>
+              <p className="text-sm text-muted-foreground">24/7 Technical Support</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Notifications Page
+const Notifications = () => {
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      title: 'Person Detection Alert',
+      message: 'Unauthorized person detected in restricted area - Camera 3',
+      timestamp: '2024-01-15 14:30:25',
+      type: 'alert',
+      read: false,
+      severity: 'high'
+    },
+    {
+      id: 2,
+      title: 'System Update Available',
+      message: 'New surveillance system update v2.4.2 is available for download',
+      timestamp: '2024-01-15 10:15:00',
+      type: 'system',
+      read: false,
+      severity: 'medium'
+    },
+    {
+      id: 3,
+      title: 'Storage Warning',
+      message: 'Storage usage has exceeded 85%. Consider archiving old recordings',
+      timestamp: '2024-01-15 09:45:12',
+      type: 'warning',
+      read: true,
+      severity: 'medium'
+    },
+    {
+      id: 4,
+      title: 'Backup Completed',
+      message: 'Daily backup completed successfully. 2.4GB archived to cloud',
+      timestamp: '2024-01-15 02:00:00',
+      type: 'info',
+      read: true,
+      severity: 'low'
+    },
+    {
+      id: 5,
+      title: 'Network Connectivity Restored',
+      message: 'Connection to Camera 5 has been restored after maintenance',
+      timestamp: '2024-01-14 16:20:30',
+      type: 'info',
+      read: true,
+      severity: 'low'
+    }
+  ]);
+
+  const markAsRead = (id: number) => {
+    setNotifications(prev => 
+      prev.map(notif => 
+        notif.id === id ? { ...notif, read: true } : notif
+      )
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => 
+      prev.map(notif => ({ ...notif, read: true }))
+    );
+  };
+
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case 'alert': return <AlertTriangle className="h-5 w-5 text-error" />;
+      case 'warning': return <AlertTriangle className="h-5 w-5 text-warning" />;
+      case 'system': return <SettingsIcon className="h-5 w-5 text-info" />;
+      case 'info': return <Info className="h-5 w-5 text-success" />;
+      default: return <Bell className="h-5 w-5 text-muted-foreground" />;
+    }
+  };
+
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'high': return 'border-l-error bg-error/5';
+      case 'medium': return 'border-l-warning bg-warning/5';
+      case 'low': return 'border-l-success bg-success/5';
+      default: return 'border-l-muted bg-muted/5';
+    }
+  };
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Notifications</h1>
+          <p className="text-muted-foreground">
+            {unreadCount} unread notification{unreadCount !== 1 ? 's' : ''}
+          </p>
+        </div>
+        <div className="flex space-x-2">
+          <Button onClick={markAllAsRead} variant="outline">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            Mark All as Read
+          </Button>
+          <Button className="bg-error hover:bg-error/90">
+            <AlertTriangle className="w-4 h-4 mr-2" />
+            Clear All
+          </Button>
+        </div>
+      </div>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>Recent Notifications</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {notifications.map((notification) => (
+              <div
+                key={notification.id}
+                className={`p-4 rounded-lg border-l-4 cursor-pointer transition-all ${
+                  getSeverityColor(notification.severity)
+                } ${!notification.read ? 'ring-1 ring-primary/20' : ''}`}
+                onClick={() => markAsRead(notification.id)}
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 mt-1">
+                    {getNotificationIcon(notification.type)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <h4 className={`font-medium ${!notification.read ? 'text-primary' : ''}`}>
+                        {notification.title}
+                      </h4>
+                      {!notification.read && (
+                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {notification.message}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {notification.timestamp}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// User Manual Page
+const UserManual = () => {
+  const manualSections = [
+    {
+      title: 'Getting Started',
+      items: [
+        'System Requirements',
+        'Installation Guide',
+        'Initial Setup',
+        'User Account Management'
+      ]
+    },
+    {
+      title: 'Basic Operations',
+      items: [
+        'Dashboard Overview',
+        'Live Camera Monitoring',
+        'Alert Management',
+        'Recording Playback'
+      ]
+    },
+    {
+      title: 'Advanced Features',
+      items: [
+        'AI Detection Configuration',
+        'Network Management',
+        'Report Generation',
+        'Analytics & Intelligence'
+      ]
+    },
+    {
+      title: 'Troubleshooting',
+      items: [
+        'Common Issues',
+        'Error Codes',
+        'System Diagnostics',
+        'Performance Optimization'
+      ]
+    }
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">User Manual</h1>
+        <Button className="bg-primary hover:bg-primary/90">
+          <Download className="w-4 h-4 mr-2" />
+          Download PDF
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>Quick Start Guide</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 bg-success/10 border border-success/20 rounded-lg">
+              <h4 className="font-semibold text-success mb-2">Step 1: Login</h4>
+              <p className="text-sm">Use your credentials to access the surveillance system.</p>
+            </div>
+            <div className="p-4 bg-info/10 border border-info/20 rounded-lg">
+              <h4 className="font-semibold text-info mb-2">Step 2: Configure Cameras</h4>
+              <p className="text-sm">Set up your camera feeds and detection zones.</p>
+            </div>
+            <div className="p-4 bg-warning/10 border border-warning/20 rounded-lg">
+              <h4 className="font-semibold text-warning mb-2">Step 3: Enable Alerts</h4>
+              <p className="text-sm">Configure alert preferences and notification settings.</p>
+            </div>
+            <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+              <h4 className="font-semibold text-primary mb-2">Step 4: Monitor</h4>
+              <p className="text-sm">Start monitoring your premises with AI-powered detection.</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="surveillance-card">
+          <CardHeader>
+            <CardTitle>System Features</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg">
+                <Shield className="h-6 w-6 text-primary" />
+                <div>
+                  <h4 className="font-medium">AI-Powered Detection</h4>
+                  <p className="text-sm text-muted-foreground">Person, helmet, and vest detection</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg">
+                <Video className="h-6 w-6 text-success" />
+                <div>
+                  <h4 className="font-medium">Real-time Monitoring</h4>
+                  <p className="text-sm text-muted-foreground">Live camera feeds with instant alerts</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg">
+                <BarChart3 className="h-6 w-6 text-info" />
+                <div>
+                  <h4 className="font-medium">Advanced Analytics</h4>
+                  <p className="text-sm text-muted-foreground">Detailed reports and insights</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-muted/30 rounded-lg">
+                <Network className="h-6 w-6 text-warning" />
+                <div>
+                  <h4 className="font-medium">Network Management</h4>
+                  <p className="text-sm text-muted-foreground">Monitor and manage network devices</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>Documentation Sections</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {manualSections.map((section, index) => (
+              <div key={index} className="space-y-3">
+                <h4 className="font-semibold text-primary">{section.title}</h4>
+                <div className="space-y-2">
+                  {section.items.map((item, itemIndex) => (
+                    <button
+                      key={itemIndex}
+                      className="block w-full text-left text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 p-2 rounded transition-colors"
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="surveillance-card">
+        <CardHeader>
+          <CardTitle>Contact Support</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">Technical Support</h4>
+              <p className="text-primary font-medium">+1 (555) 123-4567</p>
+              <p className="text-sm text-muted-foreground">24/7 Support Available</p>
+            </div>
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">Email Support</h4>
+              <p className="text-primary font-medium">support@uchittech.com</p>
+              <p className="text-sm text-muted-foreground">Response within 2 hours</p>
+            </div>
+            <div className="text-center p-4 bg-muted/30 rounded-lg">
+              <h4 className="font-semibold">Documentation</h4>
+              <p className="text-primary font-medium">docs.uchittech.com</p>
+              <p className="text-sm text-muted-foreground">Complete online manual</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
 // Sidebar Component
-const Sidebar = ({ activePage, setActivePage, onLogout }: { 
+const Sidebar = ({ activePage, setActivePage, onLogout, theme, toggleTheme }: { 
   activePage: string; 
   setActivePage: (page: string) => void;
   onLogout: () => void;
+  theme: string;
+  toggleTheme: () => void;
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -1020,7 +1737,7 @@ const Sidebar = ({ activePage, setActivePage, onLogout }: {
     { id: 'reports', label: 'Reports', icon: FileText, path: '/reports' },
     { id: 'network', label: 'Network Management', icon: Network, path: '/network' },
     { id: 'system-info', label: 'Client System Info', icon: Monitor, path: '/system-info' },
-    { id: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
+    { id: 'settings', label: 'Settings', icon: SettingsIcon, path: '/settings' },
     { id: 'notifications', label: 'Notifications', icon: Bell, path: '/notifications' },
     { id: 'manual', label: 'User Manual', icon: Info, path: '/manual' },
   ];
@@ -1034,11 +1751,21 @@ const Sidebar = ({ activePage, setActivePage, onLogout }: {
     <div className="surveillance-sidebar w-64 min-h-screen flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-sidebar-muted">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-sidebar-accent to-primary rounded-lg flex items-center justify-center">
-            <Shield className="h-6 w-6 text-white" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-sidebar-accent to-primary rounded-lg flex items-center justify-center">
+              <Shield className="h-6 w-6 text-white" />
+            </div>
+            <h1 className="text-xl font-bold text-sidebar-accent">UchitTech AI</h1>
           </div>
-          <h1 className="text-xl font-bold text-sidebar-accent">UchitTech AI</h1>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="text-sidebar-muted hover:text-sidebar-accent"
+          >
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </Button>
         </div>
       </div>
 
@@ -1200,6 +1927,8 @@ const SurveillanceApp = () => {
         activePage={activePage} 
         setActivePage={setActivePage}
         onLogout={handleLogout}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
       <main className="flex-1 p-6 overflow-auto">
         {children}
@@ -1238,6 +1967,31 @@ const SurveillanceApp = () => {
         <Route path="/reports" element={
           <Layout>
             <Reports />
+          </Layout>
+        } />
+        <Route path="/network" element={
+          <Layout>
+            <NetworkManagement />
+          </Layout>
+        } />
+        <Route path="/system-info" element={
+          <Layout>
+            <ClientSystemInfo />
+          </Layout>
+        } />
+        <Route path="/settings" element={
+          <Layout>
+            <Settings theme={theme} toggleTheme={toggleTheme} />
+          </Layout>
+        } />
+        <Route path="/notifications" element={
+          <Layout>
+            <Notifications />
+          </Layout>
+        } />
+        <Route path="/manual" element={
+          <Layout>
+            <UserManual />
           </Layout>
         } />
         <Route path="*" element={

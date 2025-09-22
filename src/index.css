@@ -154,9 +154,13 @@
   
   /* Login page background */
   .login-background {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e293b 75%, #0f172a 100%);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background: 
+      linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+      url('/src/assets/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
   
   @keyframes gradientShift {
@@ -177,5 +181,42 @@
   @keyframes gridMove {
     0% { transform: translate(0, 0); }
     100% { transform: translate(50px, 50px); }
+  }
+
+  /* Login page animations */
+  .animate-pulse-soft {
+    animation: pulse-soft 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out;
+  }
+
+  /* Progress bar variants */
+  .progress-success [data-progress-indicator] {
+    background: hsl(var(--success));
+  }
+
+  .progress-warning [data-progress-indicator] {
+    background: hsl(var(--warning));
+  }
+
+  .progress-error [data-progress-indicator] {
+    background: hsl(var(--error));
+  }
+
+  .progress-info [data-progress-indicator] {
+    background: hsl(var(--info));
   }
 }
